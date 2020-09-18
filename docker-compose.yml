@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  otel-collector:
+    env_file:
+      - docker.env
+    image:  otel-collector:0.10.0
+    command: ["--config=/etc/otel-collector-config.yml"]
+    build:
+      context: .
+    ports:
+      - "1777:1777"   # pprof extension port
+      - "9411:9411"   # zipkin receiver - proxied by nginx
+      - "13133:13133" # health_check extension
+      - "55679:55679"       # zpages extension
+      - "55681:55681"       # otlp http receiver - proxied by nginx

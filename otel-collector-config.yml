@@ -1,0 +1,28 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "$OTLP_RECEIVER_ENDPOINT"
+  zipkin:
+    endpoint: "$ZIPKIN_RECEIVER_ENDPOINT"
+exporters:
+  logging:
+  sapm/sfx_apm:
+   access_token: "$SFX_EXPORTER_ACCESS_TOKEN"
+   endpoint: "$SFX_EXPORTER_ENDPOINT"
+processors:
+  batch:
+  queued_retry:
+extensions:
+  health_check:
+  pprof:
+    endpoint: "$PPROF_EXTENSION_ENDPOINT"
+  zpages:
+    endpoint: "$ZPAGES_EXTENSION_ENDPOINT"
+service:
+  extensions: [pprof, zpages, health_check]
+  pipelines:
+    traces:
+      receivers: [otlp, zipkin]
+      exporters: [logging, sapm/sfx_apm]
+      processors: [batch, queued_retry]

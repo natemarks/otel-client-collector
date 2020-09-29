@@ -8,8 +8,8 @@ services:
     build:
       context: .
     ports:
-      - "1777:1777"   # pprof extension port
-      - "9411:9411"   # zipkin receiver - proxied by nginx
-      - "13133:13133" # health_check extension
-      - "55679:55679"       # zpages extension
-      - "55681:55681"       # otlp http receiver - proxied by nginx
+      - "14250:14250"   # pprof extension port
+      - "6831:6831"   # zipkin receiver - proxied by nginx
+      - "14268:14268" # health_check extension
+      - "1777:1777"       # zpages extension
+      - "55679:55679"       # otlp http receiver - proxied by nginx
